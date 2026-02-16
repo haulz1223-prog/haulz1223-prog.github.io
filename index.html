@@ -3,41 +3,119 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Smart Password Checker - Test password strength and generate secure passwords">
   <title>Smart Password Checker 🔒</title>
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <div class="container">
-    <h1>Smart Password Checker 🔒</h1>
-    <p>Type a password to see its strength and suggestions:</p>
+    <header>
+      <h1>Smart Password Checker 🔒</h1>
+      <p class="subtitle">Create and validate strong, secure passwords</p>
+    </header>
 
-    <div class="input-group">
-      <input type="password" id="password" placeholder="Enter your password">
-      <button id="togglePassword">Show</button>
-    </div>
+    <section class="password-input-section">
+      <label for="password" class="visually-hidden">Enter your password</label>
+      <div class="input-group">
+        <input 
+          type="password" 
+          id="password" 
+          placeholder="Enter your password"
+          aria-describedby="strengthText"
+          autocomplete="off"
+        >
+        <button id="togglePassword" aria-label="Toggle password visibility">
+          <span class="icon">👁️</span>
+          <span class="text">Show</span>
+        </button>
+      </div>
+    </section>
 
-    <div class="strength-meter">
-      <div id="strengthBar"></div>
-    </div>
-    <p id="strengthText">Strength: -</p>
+    <section class="strength-section">
+      <div class="strength-meter" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+        <div id="strengthBar"></div>
+      </div>
+      <p id="strengthText" aria-live="polite">Strength: Not evaluated</p>
+    </section>
 
-    <ul id="criteria">
-      <li id="length">At least 8 characters</li>
-      <li id="uppercase">Contains uppercase letters</li>
-      <li id="lowercase">Contains lowercase letters</li>
-      <li id="number">Contains numbers</li>
-      <li id="special">Contains special characters (!@#$%)</li>
-    </ul>
+    <section class="criteria-section">
+      <h2>Password Requirements</h2>
+      <ul id="criteriaList" role="list">
+        <li id="length" class="criterion">
+          <span class="icon">○</span>
+          <span class="text">At least 8 characters</span>
+        </li>
+        <li id="uppercase" class="criterion">
+          <span class="icon">○</span>
+          <span class="text">Contains uppercase letters (A-Z)</span>
+        </li>
+        <li id="lowercase" class="criterion">
+          <span class="icon">○</span>
+          <span class="text">Contains lowercase letters (a-z)</span>
+        </li>
+        <li id="number" class="criterion">
+          <span class="icon">○</span>
+          <span class="text">Contains numbers (0-9)</span>
+        </li>
+        <li id="special" class="criterion">
+          <span class="icon">○</span>
+          <span class="text">Contains special characters (!@#$%...)</span>
+        </li>
+      </ul>
+      <p id="weaknessFeedback" class="feedback" aria-live="polite"></p>
+    </section>
 
-    <p id="weaknessFeedback"></p>
+    <section class="generator-section">
+      <h2>Password Generator</h2>
+      <div class="generator-controls">
+        <div class="length-control">
+          <label for="passwordLength">Length: <span id="lengthValue">16</span></label>
+          <input 
+            type="range" 
+            id="passwordLength" 
+            min="8" 
+            max="32" 
+            value="16"
+            aria-label="Password length"
+          >
+        </div>
+        <button id="generateBtn" class="btn-primary">
+          <span class="icon">🔄</span>
+          Generate Password
+        </button>
+      </div>
+      
+      <div class="generated-output">
+        <input 
+          type="text" 
+          id="generatedPassword" 
+          readonly 
+          placeholder="Generated password will appear here"
+          aria-label="Generated password"
+        >
+        <button id="copyBtn" class="btn-secondary" aria-label="Copy password to clipboard">
+          <span class="icon">📋</span>
+          Copy
+        </button>
+      </div>
+      
+      <p id="copyNotification" class="notification" aria-live="polite"></p>
+    </section>
 
-    <div class="generator">
-      <button id="generateBtn">Generate Strong Password</button>
-      <input type="text" id="generatedPassword" readonly>
-      <button id="copyBtn">Copy</button>
-    </div>
+    <footer class="tips-section">
+      <details>
+        <summary>💡 Password Security Tips</summary>
+        <ul class="tips-list">
+          <li>Never reuse passwords across different accounts</li>
+          <li>Use a password manager to store your passwords securely</li>
+          <li>Enable two-factor authentication (2FA) whenever possible</li>
+          <li>Avoid common words, names, or keyboard patterns</li>
+          <li>Change passwords immediately if you suspect a breach</li>
+        </ul>
+      </details>
+    </footer>
   </div>
 
-  <script src="script/script.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>
